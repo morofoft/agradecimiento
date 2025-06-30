@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gracias por tu cariño</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- tsParticles -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.10.1/tsparticles.bundle.min.js"></script>
+
+<style>
+  * {
+    padding:0;
+    margin:0;
+  
+  }
+  #tsparticles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+  }
+
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  h1, h2 {
+    text-align:center;
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+  h2 {
+    margin-bottom: 50px;
+  }
+
+  button {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border: none;
+    padding: 20px 50px;
+    font-size: 1.5rem;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.7);
+    color: white;
+    transition: all 0.35s ease;
+    user-select: none;
+  }
+
+  button:hover {
+    background: linear-gradient(135deg, #60a5fa, #1e40af);
+    box-shadow: 0 10px 35px rgba(30, 64, 175, 0.9);
+    transform: scale(1.05);
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+  @media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  button {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+  }
+
+  .swal2-popup {
+    width: 90% !important;
+    font-size: 1rem;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div id="tsparticles"></div>
+
+<h1>😎</h1>
+<h2>Tengo algo que decirte!</h2>
+<button id="showMsgBtn" aria-label="Mostrar mensaje de agradecimiento">Mostrar mensaje</button>
+
+<!-- Sonido de celebración (campanitas y aplausos) -->
+<audio id="celebrationSound" preload="auto" src="https://cdn.pixabay.com/download/audio/2022/02/17/audio_1a72e48299.mp3?filename=bell-chimes-and-applause-6241.mp3"></audio>
+
+<script>
+  tsParticles.load("tsparticles", {
+    fpsLimit: 60,
+    interactivity: {
+      events: {
+        onHover: { enable: false },
+        onClick: { enable: false },
+        resize: true
+      }
+    },
+    particles: {
+      color: { value: ["#ef4444", "#fbbf24", "#22c55e", "#3b82f6", "#8b5cf6"] },
+      shape: {
+        type: ["circle", "square", "triangle"],
+        options: {}
+      },
+      opacity: { value: 1 },
+      size: { value: { min: 6, max: 10 }, animation: { enable: false } },
+      move: {
+        direction: "bottom",
+        enable: true,
+        outModes: { default: "out" },
+        speed: 2,
+        straight: false,
+        random: true,
+        tilt: { enable: true, value: 30, direction: "random", animation: { enable: true, speed: 5, sync: false } },
+        roll: { enable: true, speed: { min: 10, max: 20 } },
+        wobble: { enable: true, distance: 5, speed: 2 }
+      },
+      number: { value: 40, density: { enable: true, area: 800 } },
+      rotate: { value: 0, direction: "random", animation: { enable: true, speed: 15, sync: false } }
+    },
+    detectRetina: true
+  });
+
+  const btn = document.getElementById('showMsgBtn');
+  const sound = document.getElementById('celebrationSound');
+
+  btn.addEventListener('click', () => {
+    sound.currentTime = 0;
+    sound.play().catch(e => console.warn('No se pudo reproducir el sonido:', e));
+
+    Swal.fire({
+      title: '<i class="fa-solid fa-heart-circle-check" style="color:#2563eb; margin-right:8px;"></i> ¡Gracias!',
+      html: `
+        <p style="font-size:1.2rem; line-height:1.6; max-width: 500px; margin: 0 auto; color:#222;">
+          Gracias por tenerme en cuenta en mi cumpleaños.<br>
+          Tu cariño y atención hacen que este día sea aún más especial.<br><br>
+          <b>Gracias por hacerme sentir tan querido!</b>
+          
+          <br><br>
+          <em style="color:#555;">Con mucho cariño, ing. Pedro Garcia</em>
+        </p>`,
+      background: '#fefefe',
+      color: '#333',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#2563eb',
+      width: '90%',
+      maxWidth: '600px',
+      padding: '40px',
+      backdrop: `rgba(37, 99, 235, 0.25)`,
+      showClass: { popup: 'swal2-show swal2-animate-slide-in-top' },
+      hideClass: { popup: 'swal2-hide swal2-animate-slide-out-bottom' }
+    });
+  });
+</script>
+
+</body>
+</html>
